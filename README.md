@@ -1,1 +1,1 @@
-# bbshop Progressive Web Apps
+# BBShop Progressive Web Apps
