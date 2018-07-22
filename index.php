@@ -1,4 +1,3 @@
-<?php
-echo "Hello World";
-echo "Edit again";
+<?php 
+require_once "index.html"
 ?>
