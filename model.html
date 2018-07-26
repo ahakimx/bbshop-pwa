@@ -162,9 +162,9 @@
       <button @click="clear">clear</button>
       <button @click="add(employee)">Add data </button> -->
         <!--Section: Products v.3-->
-        <button @click="add()">Add data </button>
+      <!--  <button @click="add()">Add data </button>
       <section class="text-center mb-4" v-on:onload="add(employee)">
-
+      -->
           <!--Grid row-->
           <div class="row wow fadeIn">
 
@@ -176,7 +176,7 @@
 
                 <!--Card image-->
                 <div class="view overlay">
-                  <img :src="employee.age" class="card-img-top" alt="">
+                  <img :src="employee.img" class="card-img-top" alt="">
                   <a>
                     <div class="mask rgba-white-slight"></div>
                   </a>
@@ -247,7 +247,7 @@
       <!--Copyright-->
       <div class="footer-copyright py-3">
         © 2018 Copyright:
-        <a href="#" target="_blank"> BaeShop.com </a>
+        <a href="#" target="_blank"> BBShop.com </a>
       </div>
       <!--/.Copyright-->
 
@@ -285,46 +285,46 @@
       {
         id: 1 ,
         name: "Model One",
-        age: "images/mr/1.jpg"
+        img: "images/mr/1.jpg"
       },
       {
         id: 2 ,
         name: "Model Two",
-        age: "images/mr/2.jpg"
+        img: "images/mr/2.jpg"
       },
       {
         id: 3 ,
         name: "Model Three",
-        age: "images/mr/3.jpg"
+        img: "images/mr/3.jpg"
       },
       {
         id: 4 ,
         name: "Model Four",
-        age: "images/mr/4.jpg"
+        img: "images/mr/4.jpg"
       },
       {
         id: 5 ,
         name: "Model Five",
-        age: "images/mr/5.jpg"
+        img: "images/mr/5.jpg"
       },
       {
         id: 6 ,
         name: "Model Six",
-        age: "images/mr/6.jpg"
+        img: "images/mr/6.jpg"
       },
       {
         id: 7 ,
         name: "Model Seven",
-        age: "images/mr/7.jpg"
+        img: "images/mr/7.jpg"
       },
       {
         id: 8 ,
         name: "Model Eight",
-        age: "images/mr/8.jpg"
+        img: "images/mr/8.jpg"
       }
     ];
     var db;
-    var request = window.indexedDB.open("newDatabase", 1);
+    var request = window.indexedDB.open("BBShop", 1);
 
     request.onerror = function(event) {
       console.log("error: ");
@@ -337,7 +337,7 @@
 
     request.onupgradeneeded = function(event) {
       var db = event.target.result;
-      var objectStore = db.createObjectStore("employee", {keyPath: "id"});
+      var objectStore = db.createObjectStore("modelrambut", {keyPath: "id"});
 
       for (var i in employeeData) {
         objectStore.add(employeeData[i]);
@@ -352,7 +352,7 @@
           employee:{
             id: null,
             name: null,
-            age: 0,
+            img: 0,
           },
           employees: [],
           retryCount: 0,
@@ -369,53 +369,12 @@
 
       methods:{
         add:function() {
-          var vm = this
-          let request = new Promise((resolve, reject) => {
-            var request = db.transaction(["employee"], "readwrite")
-            .objectStore("employee").add({
-              id: 1 ,
-              name: "Model Balded Fade and Long Loose Hair",
-              age: "images/mr/1.jpg"
-              //email:employee.email
-            })
-            request.onsuccess = function(event) {
-              vm.employees.push({
-                edit: false,
-                id: 1 ,
-                name: "Model Balded Fade and Long Loose Hair",
-                age: "images/mr/1.jpg"
-                //email: employee.email
-              },{
-                edit: false,
-                id: 2 ,
-                name: "Model Balded Fade and Long Loose Hair",
-                age: "images/mr/2.jpg"
-              },{
-                edit: false,
-                id: 3 ,
-                name: "Model Balded Fade and Long Loose Hair",
-                age: "images/mr/3.jpg"
-              },{
-                edit: false,
-                id: 4 ,
-                name: "Model Balded Fade and Long Loose Hair",
-                age: "images/mr/4.jpg"
-              },{
-                edit: false,
-                id: 5 ,
-                name: "Model Balded Fade and Long Loose Hair",
-                age: "images/mr/5.jpg"
-              })
-            }
-            request.onerror = function(event) {
-              alert("Unable to add data ");
-            }
-          });
+
         },
         clear() {
           var vm = this
-          var request = db.transaction(["employee"], "readwrite")
-          .objectStore("employee")
+          var request = db.transaction(["modelrambut"], "readwrite")
+          .objectStore("modelrambut")
           .clear()
           vm.employees = []
         },
@@ -432,14 +391,14 @@
           var vm = this
           try {
             vm.employees = []
-            var objectStore = db.transaction("employee").objectStore("employee");
+            var objectStore = db.transaction("modelrambut").objectStore("modelrambut");
             if(objectStore){
               objectStore.openCursor().onsuccess = function(event) {
                 var cursor = event.target.result;
 
                 if (cursor) {
                   if(vm.employees){
-                    vm.employees.push({ edit: false,  id: cursor.key , name: cursor.value.name , age:cursor.value.age});
+                    vm.employees.push({ edit: false,  id: cursor.key , name: cursor.value.name , img:cursor.value.img});
 
                   }
                   cursor.continue();
@@ -453,8 +412,8 @@
         },
         remove(id, index) {
           var vm = this
-          var request =  db.transaction(["employee"], "readwrite")
-          .objectStore("employee")
+          var request =  db.transaction(["modelrambut"], "modelrambut")
+          .objectStore("modelrambut")
           .delete(id);
           vm.employees.splice(index, 1)
         },
