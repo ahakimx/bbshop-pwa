@@ -145,7 +145,7 @@
       </div>
       <!--/First slide-->
 
-      
+
     </div>
     <!--/.Slides-->
 
@@ -167,13 +167,13 @@
 
           <!--Grid row-->
           <div class="row wow fadeIn">
-  
+
             <!--Grid column-->
             <div  v-for="(employee, index) in employees" class="col-lg-3 col-md-6 mb-4">
-  
+
               <!--Card-->
               <div class="card">
-  
+
                 <!--Card image-->
                 <div class="view overlay">
                   <img :src="employee.age" class="card-img-top" alt="">
@@ -182,75 +182,75 @@
                   </a>
                 </div>
                 <!--Card image-->
-  
+
                 <!--Card content-->
                 <div class="card-body text-center">
                   <!--Category & Title-->
                   <a href="" class="grey-text">
                     <h5>{{employee.name}}</h5>
                   </a>
-                
+
                 </div>
                 <!--Card content-->
-  
+
               </div>
               <!--Card-->
-  
+
             </div>
             <!--Grid column-->
           </div>
       </section>
-      
+
   </div>
 </div>
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
       <hr class="my-4">
-  
+
       <!-- Social icons -->
       <div class="pb-4">
         <a href="#" target="_blank">
           <i class="fa fa-facebook mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-twitter mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-youtube mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-google-plus mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-dribbble mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-pinterest mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-github mr-3"></i>| &nbsp;&nbsp;
         </a>
-  
+
         <a href="#" target="_blank">
           <i class="fa fa-codepen mr-3"></i>
         </a>
       </div>
       <!-- Social icons -->
-  
+
       <!--Copyright-->
       <div class="footer-copyright py-3">
         © 2018 Copyright:
         <a href="#" target="_blank"> BaeShop.com </a>
       </div>
       <!--/.Copyright-->
-  
+
     </footer>
     <!--/.Footer-->
 
@@ -272,39 +272,79 @@
   <script>
     //prefixes of implementation that we want to test
     window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-    
+
     //prefixes of window.IDB objects
     window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
     window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
-    
+
     if (!window.indexedDB) {
       window.alert("Your browser doesn't support a stable version of IndexedDB.")
     }
-    
+
     const employeeData = [
+      {
+        id: 1 ,
+        name: "Model One",
+        age: "images/mr/1.jpg"
+      },
+      {
+        id: 2 ,
+        name: "Model Two",
+        age: "images/mr/2.jpg"
+      },
+      {
+        id: 3 ,
+        name: "Model Three",
+        age: "images/mr/3.jpg"
+      },
+      {
+        id: 4 ,
+        name: "Model Four",
+        age: "images/mr/4.jpg"
+      },
+      {
+        id: 5 ,
+        name: "Model Five",
+        age: "images/mr/5.jpg"
+      },
+      {
+        id: 6 ,
+        name: "Model Six",
+        age: "images/mr/6.jpg"
+      },
+      {
+        id: 7 ,
+        name: "Model Seven",
+        age: "images/mr/7.jpg"
+      },
+      {
+        id: 8 ,
+        name: "Model Eight",
+        age: "images/mr/8.jpg"
+      }
     ];
     var db;
-    var request = window.indexedDB.open("newDatabase", 4);
-    
+    var request = window.indexedDB.open("newDatabase", 1);
+
     request.onerror = function(event) {
       console.log("error: ");
     };
-    
+
     request.onsuccess = function(event) {
       db = request.result;
       console.log("success: "+ db);
     };
-    
+
     request.onupgradeneeded = function(event) {
       var db = event.target.result;
       var objectStore = db.createObjectStore("employee", {keyPath: "id"});
-    
+
       for (var i in employeeData) {
         objectStore.add(employeeData[i]);
       }
     }
-    
-    
+
+
     new Vue ({
       el: '#app',
       data(){
@@ -316,7 +356,7 @@
           },
           employees: [],
           retryCount: 0,
-    
+
         }
       },
       beforeMount(){
@@ -326,51 +366,51 @@
         this.add()
         this.readAll()
       },
-    
+
       methods:{
         add:function() {
           var vm = this
           let request = new Promise((resolve, reject) => {
             var request = db.transaction(["employee"], "readwrite")
-            .objectStore("employee").add({ 
+            .objectStore("employee").add({
               id: 1 ,
-              name: "Model Balded Fade and Long Loose Hair", 
+              name: "Model Balded Fade and Long Loose Hair",
               age: "images/mr/1.jpg"
-              //email:employee.email 
+              //email:employee.email
             })
             request.onsuccess = function(event) {
-              vm.employees.push({ 
+              vm.employees.push({
                 edit: false,
                 id: 1 ,
-                name: "Model Balded Fade and Long Loose Hair", 
+                name: "Model Balded Fade and Long Loose Hair",
                 age: "images/mr/1.jpg"
-                //email: employee.email 
+                //email: employee.email
               },{
                 edit: false,
                 id: 2 ,
-                name: "Model Balded Fade and Long Loose Hair", 
+                name: "Model Balded Fade and Long Loose Hair",
                 age: "images/mr/2.jpg"
               },{
                 edit: false,
                 id: 3 ,
-                name: "Model Balded Fade and Long Loose Hair", 
+                name: "Model Balded Fade and Long Loose Hair",
                 age: "images/mr/3.jpg"
               },{
                 edit: false,
                 id: 4 ,
-                name: "Model Balded Fade and Long Loose Hair", 
+                name: "Model Balded Fade and Long Loose Hair",
                 age: "images/mr/4.jpg"
               },{
                 edit: false,
                 id: 5 ,
-                name: "Model Balded Fade and Long Loose Hair", 
+                name: "Model Balded Fade and Long Loose Hair",
                 age: "images/mr/5.jpg"
               })
             }
             request.onerror = function(event) {
               alert("Unable to add data ");
             }
-          }); 
+          });
         },
         clear() {
           var vm = this
@@ -380,13 +420,13 @@
           vm.employees = []
         },
         edit(employee, index) {
-    
+
           var vm = this
           new Promise((resolve, reject) => {
             vm.remove(employee.id, index)
-            resolve(vm.add(employee)); 
+            resolve(vm.add(employee));
           });
-    
+
         },
         readAll() {
           var vm = this
@@ -396,14 +436,14 @@
             if(objectStore){
               objectStore.openCursor().onsuccess = function(event) {
                 var cursor = event.target.result;
-    
+
                 if (cursor) {
                   if(vm.employees){
                     vm.employees.push({ edit: false,  id: cursor.key , name: cursor.value.name , age:cursor.value.age});
-    
+
                   }
                   cursor.continue();
-    
+
                 }
               };
             }
@@ -436,42 +476,42 @@
 
 </html>
   <!-- <script>
-      // This works on all devices/browsers, and uses IndexedDBShim as a final fallback 
+      // This works on all devices/browsers, and uses IndexedDBShim as a final fallback
     var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-  
+
     // Open (or create) the database
     var open = indexedDB.open("MyDatabase", 1);
-  
+
     // Create the schema
     open.onupgradeneeded = function() {
         var db = open.result;
         var store = db.createObjectStore("MyObjectStore", {keyPath: "id"});
         var index = store.createIndex("morambut", ["name.foto", "name.nama"]);
     };
-  
+
     open.onsuccess = function() {
         // Start a new transaction
         var db = open.result;
         var tx = db.transaction("MyObjectStore", "readwrite");
         var store = tx.objectStore("MyObjectStore");
         var index = store.index("morambut");
-  
+
         // Add some data
         store.put({id: 12345, name: {nama: "John", foto: "Doe"}, age: 42});
         store.put({id: 67890, name: {nama: "Bob", foto: "Smith"}, age: 35});
-        
+
         // Query the data
         var getJohn = store.get(12345);
         var getBob = index.get(["Smith", "Bob"]);
-  
+
         getJohn.onsuccess = function() {
             console.log(getJohn.result.name.nama);  // => "John"
         };
-  
+
         getBob.onsuccess = function() {
             console.log(getBob.result.name.nama);   // => "Bob"
         };
-  
+
         // Close the db when the transaction is done
         tx.oncomplete = function() {
             db.close();
